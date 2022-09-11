@@ -10,9 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class HomeController {
 
-    @GetMapping
+    @GetMapping("/login")
     public String login(){
-        return "loginPage";
+        return "login";
+    }
+
+    @GetMapping("/")
+    public String index(){
+        return "index";
     }
 
 }

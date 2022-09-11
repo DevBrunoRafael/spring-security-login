@@ -22,7 +22,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().formLogin();
+        http.authorizeRequests().anyRequest().authenticated().and().formLogin()
+                .loginPage("/login").permitAll();
+
         return http.build();
     }
 
@@ -30,12 +32,9 @@ public class SecurityConfig {
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.builder()
                 .username("user")
-                .password(passwordEncoder().encode("password"))
-                .roles("USER")
+                .password(passwordEncoder().encode("123"))
+                .authorities("USER")
                 .build();
         return new InMemoryUserDetailsManager(user);
     }
-
-
-
 }
