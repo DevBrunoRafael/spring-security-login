@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>login page</title>
@@ -12,7 +12,7 @@
         }
 
         body{
-            background: white;
+            background: #fafafa;
             height: 100vh;
             width: 100vw;
             display: flex;
@@ -24,7 +24,7 @@
         .card-form{
             width: 18.75rem;
             height: 16rem;
-            margin-top: -45px;
+            margin-top: -10rem;
             background: #DADADAF9;
             padding: 20px;
             border-radius: 10px;
@@ -32,7 +32,7 @@
 
         form h2{
             color: black;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .form-inp{
@@ -45,13 +45,23 @@
             outline: none;
         }
 
+        .form-inp:focus{
+            border: 2px solid #128af8;
+        }
+
         .form-btn{
             width: 100%;
             margin-top: 15px;
-            padding: 10px 25px;
-            background: dodgerblue;
+            padding: 15px 25px;
+            font-weight: bold;
+            background: #0073F4FF;
             border: none;
             border-radius: 5px;
+        }
+
+        .form-btn:hover {
+            background: #128af8;
+
         }
 
         .logout, .error{
@@ -63,19 +73,19 @@
     <div class="card-form">
         <form th:action="@{/login}" method="post">
             <h2>Please sign in</h2>
-            <input class="form-inp" type="text" name="username" placeholder="User">
+            <input class="form-inp" type="text" name="username" placeholder="Username">
             <input class="form-inp" type="text" name="password" placeholder="Password">
-            <input class="form-btn" type="submit" value="Login"/>
+            <button class="form-btn" type="submit">Login</button>
         </form>
     </div>
 
-<!--    <div class="error" th:if="${param.error}">-->
-<!--        username ou password inválido!-->
-<!--    </div>-->
+    <div class="error" th:if="${param.error}">
+        username ou password inválido!
+    </div>
 
-<!--    <div class="logout" th:if="${param.logout}">-->
-<!--        você foi desconectado!-->
-<!--    </div>-->
+    <div class="logout" th:if="${param.logout}">
+        você foi desconectado!
+    </div>
 
 </body>
 </html>
