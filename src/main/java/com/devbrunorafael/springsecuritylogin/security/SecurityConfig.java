@@ -2,31 +2,32 @@ package com.devbrunorafael.springsecuritylogin.security;
 
 import com.devbrunorafael.springsecuritylogin.domain.repository.UserRepository;
 import com.devbrunorafael.springsecuritylogin.domain.service.SSUserDetailsService;
-import com.devbrunorafael.springsecuritylogin.domain.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter{ // remover o adapter
 
     private SSUserDetailsService userDetailsService;
-    private UserService userService;
+    private UserRepository userRepository;
+
+    // encontrar maneira atualizada de implementar o método abaixo
+    @Override
+    public UserDetailsService userDetailsServiceBean(){
+        return new SSUserDetailsService(this.userRepository);
+    }
 
     @Bean
     public static BCryptPasswordEncoder passwordEncoder(){
@@ -53,20 +54,10 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password(passwordEncoder().encode("123"))
-//                .authorities("USER")
-//                .build();
-//
-//        UserDetails admin = User.builder()
-//                .username("adm")
-//                .password(passwordEncoder().encode("321"))
-//                .authorities("ADMIN")
-//                .build();
-
-        return new InMemoryUserDetailsManager();
+    //encontrar a forma atualizada do método abaixo
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.userDetailsService(this.userDetailsServiceBean())
+                .passwordEncoder(passwordEncoder());
     }
 }

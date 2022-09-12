@@ -17,11 +17,16 @@ import java.util.Set;
 
 @Service
 @Transactional
-@AllArgsConstructor
 public class SSUserDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    // alterar esse construtor
+    public SSUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    // refatorar o método abaixo
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try{
@@ -37,6 +42,7 @@ public class SSUserDetailsService implements UserDetailsService {
         }
     }
 
+    // refatorar o método abaixo
     private Set<GrantedAuthority> getAuthorities(User user){
         Set<GrantedAuthority> authorities = new HashSet<>();
         for (Role roles : user.getRoles()){
