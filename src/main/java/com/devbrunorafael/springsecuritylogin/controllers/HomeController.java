@@ -16,8 +16,18 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(){
-        return "index";
+    public String home(){
+        return "home";
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+
+    @GetMapping("/secure")
+    public String secure(){
+        return "secure";
     }
 
 }
