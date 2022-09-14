@@ -1,33 +1,39 @@
 package com.devbrunorafael.springsecuritylogin.controllers;
 
+import com.devbrunorafael.springsecuritylogin.domain.model.Product;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping
 @AllArgsConstructor
 public class HomeController {
 
-    @GetMapping("/login")
-    public String login(){
-        return "login";
+    @GetMapping("/main")
+    public Product main(){
+        var pd = new Product();
+        pd.setId(1L);
+        pd.setName("produto 1");
+        pd.setDescription("um produto");
+        pd.setLocale("algum lugar da loja");
+        pd.setQuantity(20);
+
+        return pd;
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "home";
+    @DeleteMapping("/delete")
+    public String delete(){
+        return "acesso ao delete";
     }
 
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
+    @PutMapping("/update")
+    public String update(){
+        return "acesso ao update";
     }
 
-    @GetMapping("/secure")
-    public String secure(){
-        return "secure";
+    @PostMapping("/create")
+    public String create(){
+        return "acesso ao create";
     }
 
 }
