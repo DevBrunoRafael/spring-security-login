@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class CSUserDetailsService implements UserDetailsService {
+public class SSUserDetailsService implements UserDetailsService {
 
     @Autowired private UserRepository userRepository;
 
