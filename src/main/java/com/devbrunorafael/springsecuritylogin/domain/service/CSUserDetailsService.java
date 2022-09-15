@@ -1,8 +1,8 @@
 package com.devbrunorafael.springsecuritylogin.domain.service;
 
-import com.devbrunorafael.springsecuritylogin.domain.model.User;
 import com.devbrunorafael.springsecuritylogin.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,8 +19,11 @@ public class CSUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        return this.userRepository.findByUsername(username)
+        var userModel = this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username.concat(" not found!")));
+
+        return new User(
+                userModel.getUsername(), userModel.getPassword(), userModel.getAuthorities()
+        );
     }
 }
