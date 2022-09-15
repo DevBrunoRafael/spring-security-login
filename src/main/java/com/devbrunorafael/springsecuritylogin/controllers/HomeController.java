@@ -15,6 +15,13 @@ public class HomeController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping("/getAll")
+    public String getAll(){
+        return "acesso ao getAll";
+    }
+
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping("/create")
     public String create(){
         return "acesso ao create";
