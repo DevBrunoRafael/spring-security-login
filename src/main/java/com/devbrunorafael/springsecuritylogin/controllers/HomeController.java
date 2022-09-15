@@ -4,31 +4,32 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping
 public class HomeController {
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping("/get")
     public String get(){
         return "acesso ao get";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/delete")
-    public String delete(){
-        return "acesso ao delete";
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @PostMapping("/create")
+    public String create(){
+        return "acesso ao create";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public String update(){
         return "acesso ao update";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @PostMapping("/create")
-    public String create(){
-        return "acesso ao create";
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/delete")
+    public String delete(){
+        return "acesso ao delete";
     }
 
 }

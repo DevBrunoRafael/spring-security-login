@@ -13,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CSUserDetailsService implements UserDetailsService {
 
-
     @Autowired private UserRepository userRepository;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,7 +21,9 @@ public class CSUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username.concat(" not found!")));
 
         return new User(
-                userModel.getUsername(), userModel.getPassword(), userModel.getAuthorities()
+                userModel.getUsername(), userModel.getPassword(),
+                true,true,true,true,
+                userModel.getAuthorities()
         );
     }
 }
