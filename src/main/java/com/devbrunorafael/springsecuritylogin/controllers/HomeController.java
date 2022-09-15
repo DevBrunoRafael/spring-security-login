@@ -1,36 +1,31 @@
 package com.devbrunorafael.springsecuritylogin.controllers;
 
-import com.devbrunorafael.springsecuritylogin.domain.model.Product;
-import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
-@AllArgsConstructor
 public class HomeController {
 
-    @GetMapping("/main")
-    public Product main(){
-        var pd = new Product();
-        pd.setId(1L);
-        pd.setName("produto 1");
-        pd.setDescription("um produto");
-        pd.setLocale("algum lugar da loja");
-        pd.setQuantity(20);
-
-        return pd;
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @GetMapping("/get")
+    public String get(){
+        return "acesso ao get";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete")
     public String delete(){
         return "acesso ao delete";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/update")
     public String update(){
         return "acesso ao update";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/create")
     public String create(){
         return "acesso ao create";
