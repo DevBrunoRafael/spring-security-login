@@ -1,42 +1,28 @@
 package com.devbrunorafael.springsecuritylogin.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
-@CrossOrigin(origins = "*")
-@RequestMapping
+@Controller
 public class HomeController {
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @GetMapping("/get")
-    public String get(){
-        return "acesso ao get";
+    @RequestMapping(path = {"/login"})
+    public String login(){
+        return "login";
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @GetMapping("/getAll")
-    public String getAll(){
-        return "acesso ao getAll";
+    @RequestMapping(path = {"/"})
+    public String index(){
+        return "index";
     }
 
-
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @PostMapping("/create")
-    public String create(){
-        return "acesso ao create";
+    @RequestMapping("/admin")
+    public String admin(){
+        return "admin";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/update")
-    public String update(){
-        return "acesso ao update";
+    @RequestMapping("/secure")
+    public String secure(){
+        return "secure";
     }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/delete")
-    public String delete(){
-        return "acesso ao delete";
-    }
-
 }

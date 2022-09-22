@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+
+    <div th:if="${param.error}">
+        Senha ou usuário incorretos...
+    </div>
+
+    <div th:if="${param.logout}">
+        Você foi desconectado...
+    </div>
+
+    <form th:action="@{login}" method="post">
+        <div>
+            <label>Username <input type="text" name="username"></label>
+        </div>
+        <div>
+            <label>Password <input type="text" name="password"></label>
+        </div>
+        <div>
+            <button type="submit">Acessar</button>
+        </div>
+    </form>
+
+</body>
+</html>
