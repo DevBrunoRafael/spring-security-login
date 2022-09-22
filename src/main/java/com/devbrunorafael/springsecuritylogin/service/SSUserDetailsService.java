@@ -2,6 +2,7 @@ package com.devbrunorafael.springsecuritylogin.service;
 
 import com.devbrunorafael.springsecuritylogin.model.User;
 import com.devbrunorafael.springsecuritylogin.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +18,8 @@ import java.util.Set;
 @Transactional
 public class SSUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-
-    public SSUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
